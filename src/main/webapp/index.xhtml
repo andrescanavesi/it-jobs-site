@@ -5,58 +5,82 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-
-
     <ui:define name="content">
 
-        <!-- Page Header -->
-        <header class="masthead header-background">
-            <div class="overlay"></div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-md-10 mx-auto">
-                        <div class="site-heading">
-                            <a href="#{indexManagedBean.baseUrl}">
-                                <h1>IT Jobs Site</h1>
-                                <span class="subheading">Lorem Lipsum</span>
-                            </a>
+        <h:panelGrid rendered="#{indexController.error}">
+            <ui:include src="WEB-INF/error.xhtml"/>
+        </h:panelGrid>
+
+        <h:panelGrid rendered="#{not indexController.error}">
+
+            <!-- Page Header -->
+            <header class="masthead header-background">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-10 mx-auto">
+                            <div class="site-heading">
+                                <a href="#{indexManagedBean.baseUrl}">
+                                    <h1>IT Jobs Site</h1>
+                                    <span class="subheading">Lorem Lipsum</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </header>
+            </header>
 
-        <div class="header-celiacos d-none">
+
+
+
+            <!-- Main Content -->
             <div class="container">
+
                 <div class="row mx-auto">
-                    <div class="col-lg-8 col-md-10 mx-auto text-center">
-                        <h:outputText class="h1"  value="Lorem"/>
+                    <div class="col-lg-8 col-md-10 ">
+                        <ui:repeat  var="data" value="#{indexController.jobPositions}"  varStatus="dataStatus"  >
+
+
+                            <div class="post-preview">
+                                <a href="#">
+                                    <h2 class="post-title">
+                                        #{data.title}
+                                    </h2>
+                                </a>
+
+                                <div class="row">
+
+                                    <div class="col-12 col-md-8">
+                                        <p>Remote: #{data.remote}</p>
+                                        <p>Date: #{data.createdDate}</p>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-12 col-md-8">
+                                        #{data.description}
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </ui:repeat>
                     </div>
 
+                    <div class="col-sm-2">
+
+
+                    </div>
+
+
                 </div>
             </div>
-        </div>
 
+            <hr/>
 
-        <!-- Main Content -->
-        <div class="container">
-
-            <div class="row mx-auto">
-                <div class="col-lg-8 col-md-10 ">
-
-                </div>
-
-                <div class="col-sm-2">
-
-
-                </div>
-
-
-            </div>
-        </div>
-
-        <hr/>
-
+        </h:panelGrid>
 
     </ui:define>
 

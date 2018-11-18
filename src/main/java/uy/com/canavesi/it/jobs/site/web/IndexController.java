@@ -1,6 +1,8 @@
 package uy.com.canavesi.it.jobs.site.web;
 
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
@@ -8,6 +10,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import uy.com.canavesi.it.jobs.site.daos.DaoConfigs;
+import uy.com.canavesi.it.jobs.site.daos.DaoJobPositions;
+import uy.com.canavesi.it.jobs.site.entities.JobPosition;
 
 /**
  * index.xhtml controller
@@ -24,6 +28,9 @@ public class IndexController {
     private Boolean isProduction;
 
     private String baseUrl;
+    private List<JobPosition> jobPositions;
+    private DaoJobPositions daoJobPositions;
+    private Boolean error = false;
 
     /**
      *
@@ -31,12 +38,16 @@ public class IndexController {
     @PostConstruct
     public void init() {
         LOG.info("Init");
-        isProduction = DaoConfigs.isProduction();
-        baseUrl = DaoConfigs.getBaseUrl();
+        try {
+            isProduction = DaoConfigs.isProduction();
+            baseUrl = DaoConfigs.getBaseUrl();
 
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-
+            daoJobPositions = new DaoJobPositions();
+            jobPositions = daoJobPositions.find(0, 100);//TODO implement pagination
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, e.getMessage(), e);
+            error = true;
+        }
     }
 
     public Boolean getIsProduction() {
@@ -45,6 +56,18 @@ public class IndexController {
 
     public String getBaseUrl() {
         return baseUrl;
+    }
+
+    public List<JobPosition> getJobPositions() {
+        return jobPositions;
+    }
+
+    public void setJobPositions(List<JobPosition> jobPositions) {
+        this.jobPositions = jobPositions;
+    }
+
+    public Boolean getError() {
+        return error;
     }
 
 }
