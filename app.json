@@ -1,0 +1,7 @@
+{
+    "name": "IT Jobs Site",
+    "description": "A jobs site built using Java web technologies",
+    "image": "heroku/java",
+    "addons": ["heroku-postgresql"]
+}
+
