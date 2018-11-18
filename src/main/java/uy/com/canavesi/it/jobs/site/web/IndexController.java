@@ -39,4 +39,12 @@ public class IndexController {
 
     }
 
+    public Boolean getIsProduction() {
+        return isProduction;
+    }
+
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
 }

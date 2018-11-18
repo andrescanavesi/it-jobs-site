@@ -1,0 +1,16 @@
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+
+    <url-mapping id="job">
+        <pattern value="/job/#{id}/#{title}" />
+        <view-id value="/job.xhtml" />
+    </url-mapping>
+
+    <url-mapping id="search">
+        <pattern value="/search/#{search}" />
+        <view-id value="/index.xhtml" />
+    </url-mapping>
+
+</pretty-config>

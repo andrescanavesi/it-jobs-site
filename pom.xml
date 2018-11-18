@@ -15,6 +15,38 @@
     </properties>
 
     <dependencies>
+        <!-- To override urls, instead of recipe.xhtml?id=1234 to have /recipe/1234 for JSF 2.x. -->
+        <dependency>
+            <groupId>org.ocpsoft.rewrite</groupId>
+            <artifactId>rewrite-servlet</artifactId>
+            <version>3.4.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ocpsoft.rewrite</groupId>
+            <artifactId>rewrite-config-prettyfaces</artifactId>
+            <version>3.4.1.Final</version>
+        </dependency>
+        <!-- ////////////////////// -->
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.1.4</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.faces</artifactId>
+            <version>2.2.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4</version>
+            <type>jar</type>
+        </dependency>
+
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -48,29 +80,84 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.3</version>
                 <executions>
                     <execution>
-                        <phase>validate</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>copy</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${endorsed.dir}</outputDirectory>
-                            <silent>true</silent>
                             <artifactItems>
+                                <!-- required for heroku deployment -->
                                 <artifactItem>
-                                    <groupId>javax</groupId>
-                                    <artifactId>javaee-endorsed-api</artifactId>
-                                    <version>7.0</version>
-                                    <type>jar</type>
+                                    <groupId>com.github.jsimone</groupId>
+                                    <artifactId>webapp-runner</artifactId>
+                                    <version>8.0.30.2</version>
+                                    <destFileName>webapp-runner.jar</destFileName>
                                 </artifactItem>
+
                             </artifactItems>
+
                         </configuration>
+
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- to run this plugin: mvn findbugs:gui -Dfindbugs.skip=false -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.4</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                            <goal>findbugs</goal>
+                            <goal>gui</goal>
+                        </goals>
+                        <id>check</id>
+                    </execution>
+                </executions>
+                <configuration>
+                    <foo>bar</foo>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>noTest</id>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+                <findbugs.skip>true</findbugs.skip>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>doTest</id>
+            <properties>
+                <maven.test.skip>false</maven.test.skip>
+                <findbugs.skip>true</findbugs.skip>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>doFindBugs</id>
+            <properties>
+                <findbugs.skip>false</findbugs.skip>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
 
 </project>
