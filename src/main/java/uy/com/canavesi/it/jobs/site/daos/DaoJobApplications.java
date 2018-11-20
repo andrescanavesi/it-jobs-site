@@ -59,7 +59,7 @@ public class DaoJobApplications implements Serializable {
             if (result == 0) {
                 throw new Exception("Error inserting the job application");
             }
-            LOG.info("\nRule was inserted");
+            LOG.info("\nJob application was inserted");
 
             preparedStatement.close();
 
