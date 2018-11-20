@@ -24,9 +24,11 @@ public class DaoJobPositions implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(DaoJobPositions.class.getName());
     private static final String SCHEMA = "\"salesforce\"";
-    //private static final String TABLE_NAME = SCHEMA + ".\"jobposition__c\"";
-    private static final String TABLE_NAME = "\"jobposition__c\"";
+    private static final String TABLE_NAME = SCHEMA + ".\"jobposition__c\"";
 
+    /**
+     *
+     */
     public DaoJobPositions() {
     }
 
@@ -62,8 +64,8 @@ public class DaoJobPositions implements Serializable {
         try {
             connection = DbHelper.getInstance().getConnection();
 
-            //String query = "SELECT * FROM " + TABLE_NAME + " WHERE isdeleted = ? ORDER BY createddate DESC";
-            String query = "SELECT * FROM \"salesforce\".\"jobposition__c\" WHERE isdeleted = ? ORDER BY createddate DESC";
+            String query = "SELECT * FROM " + TABLE_NAME + " WHERE isdeleted = ? ORDER BY createddate DESC";
+
             LOG.log(Level.INFO, "\n{0}", query);
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setBoolean(1, false);

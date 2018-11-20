@@ -50,22 +50,42 @@ public class IndexController {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getIsProduction() {
         return isProduction;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBaseUrl() {
         return baseUrl;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<JobPosition> getJobPositions() {
         return jobPositions;
     }
 
+    /**
+     *
+     * @param jobPositions
+     */
     public void setJobPositions(List<JobPosition> jobPositions) {
         this.jobPositions = jobPositions;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getError() {
         return error;
     }
