@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/template2.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+
+        <h:panelGrid rendered="#{indexController.error}">
+            <ui:include src="WEB-INF/error.xhtml"/>
+        </h:panelGrid>
+
+        <h:panelGroup layout="block"  rendered="#{not indexController.error}" >
+
+
+            <!-- Page Content -->
+            <div class="container">
+
+                <!-- Page Heading -->
+                <h1 class="my-4">Page Heading
+                    <small>Secondary Text</small>
+                </h1>
+
+                <div class="row">
+                    <ui:repeat  var="data" value="#{indexController.jobPositions}"  varStatus="dataStatus"  >
+                        <div class="col-lg-4 col-sm-6 portfolio-item">
+                            <div class="card h-100">
+                                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt="" /></a>
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <a href="#">#{data.title}</a>
+                                    </h4>
+                                    <p class="card-text"> #{data.descriptionShort}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </ui:repeat>
+                </div>
+                <!-- /.row -->
+
+                <!-- Pagination -->
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+            <!-- /.container -->
+        </h:panelGroup>
+
+    </ui:define>
+
+
+</ui:composition>
+
+

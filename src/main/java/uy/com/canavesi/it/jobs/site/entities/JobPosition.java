@@ -66,6 +66,13 @@ public class JobPosition implements Serializable {
         return description;
     }
 
+    public String getDescriptionShort() {
+        if (description.length() > 100) {
+            return description.substring(0, 100);
+        }
+        return description;
+    }
+
     /**
      *
      * @param description
